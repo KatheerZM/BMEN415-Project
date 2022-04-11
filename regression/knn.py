@@ -27,7 +27,7 @@ line_split = text.split("\n");
 matrix = [];
 matrix.append(line_split[0].split(','));
 
-for line in line_split[1:-1]:
+for line in line_split[1:1200]:
     comma_split = line.split(",");
     for n in range(len(comma_split)):
         comma_split[n] = float(comma_split[n]);
@@ -45,11 +45,11 @@ import sklearn.linear_model
 X = [];
 y = [];
 for r in matrix[1:]:
-    X.append(r[:-2])
+    X.append(r[1:-2])
     y.append(r[-2]);
 X = numpy.array(X);
 y = numpy.array(y);
-X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.3)
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 
 #X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=5, n_classes=3, random_state=1);
 print(X.shape, y.shape)
@@ -60,7 +60,7 @@ xTrain = sc.fit_transform(X_train) #fits training data to rest
 xTest = sc.transform(X_test) #scales data
 
 # solver='adam', alpha=1e-5, hidden_layer_sizes=(10, 8, 6, 4, 2),
-clf = KNeighborsRegressor();
+clf = KNeighborsRegressor(n_neighbors = 12);
 
 sgd = make_pipeline(StandardScaler(),clf)
 
@@ -76,9 +76,9 @@ print("Mean Absolute Percentage Error:", mean_absolute_percentage_error(Y_test, 
 
 # Result:
 #
-# R^2 score: 0.8203339115308699
-# Mean Squared Error: 72.30148264984227
-# Mean Absolute Percentage Error: 0.1319237477748975
+# R^2 score: 0.7982051390481328
+# Mean Squared Error: 4.390856481481478
+# Mean Absolute Percentage Error: 0.021225661773843187
 
 
 

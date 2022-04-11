@@ -25,7 +25,7 @@ line_split = text.split("\n");
 matrix = [];
 matrix.append(line_split[0].split(','));
 
-for line in line_split[1:-1]:
+for line in line_split[1:1200]:
     comma_split = line.split(",");
     for n in range(len(comma_split)):
         comma_split[n] = float(comma_split[n]);
@@ -43,11 +43,11 @@ import sklearn.linear_model
 X = [];
 y = [];
 for r in matrix[1:]:
-    X.append(r[:-2])
+    X.append(r[1:-2])
     y.append(r[-2]);
 X = numpy.array(X);
 y = numpy.array(y);
-X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.3)
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 
 #X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=5, n_classes=3, random_state=1);
 print(X.shape, y.shape)
@@ -74,7 +74,7 @@ print("Mean Absolute Percentage Error:", mean_absolute_percentage_error(Y_test, 
 
 # Result:
 #
-# R^2 score: 0.8439345243362766
-# Mean Squared Error: 62.168481264642445
-# Mean Absolute Percentage Error: 0.12319018948791459
+# R^2 score: -0.2403438983275359
+# Mean Squared Error: 26.152112752530225
+# Mean Absolute Percentage Error: 0.053082634629995455
 

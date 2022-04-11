@@ -45,7 +45,7 @@ for r in matrix[1:]:
     y.append(r[-1]);
 X = numpy.array(X);
 y = numpy.array(y);
-X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.3)
+X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 
 #X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=5, n_classes=3, random_state=1);
 print(X.shape, y.shape)
@@ -92,7 +92,7 @@ print('Mean Accuracy: %.3f (%.3f)' % (mean(n_scores), std(n_scores)));
 
 # Result:
 #
-# The accuracy of this model is: 87.3040752351097 %
-# [[456  17   5]
-#  [ 37  53   4]
-#  [  7  11  48]]
+# The accuracy of this model is: 90.61032863849765 %
+# [[319  14   1]
+#  [ 16  33   3]
+#  [  2   4  34]]
