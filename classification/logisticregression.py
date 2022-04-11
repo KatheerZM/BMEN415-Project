@@ -1,4 +1,7 @@
 import math
+
+from sklearn.ensemble import ExtraTreesClassifier
+from sklearn.feature_selection import SelectFromModel
 from sklearn.neural_network import MLPClassifier
 import pandas as pd
 import seaborn as sns
@@ -45,6 +48,16 @@ for r in matrix[1:]:
     y.append(r[-1]);
 X = numpy.array(X);
 y = numpy.array(y);
+
+X.shape;
+FeatureSelection = ExtraTreesClassifier(n_estimators = 20)
+FeatureSelection = FeatureSelection.fit(X,y)
+FeatureSelection.feature_importances_
+TheModel = SelectFromModel(FeatureSelection,prefit = True)
+X_new = TheModel.transform(X)
+X_new.shape;
+X = X_new;
+
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 
 #X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=5, n_classes=3, random_state=1);
@@ -92,7 +105,7 @@ print('Mean Accuracy: %.3f (%.3f)' % (mean(n_scores), std(n_scores)));
 
 # Result:
 #
-# The accuracy of this model is: 90.61032863849765 %
-# [[319  14   1]
-#  [ 16  33   3]
-#  [  2   4  34]]
+# The accuracy of this model is: 89.2018779342723 %
+# [[329   5   4]
+#  [ 26  35   2]
+#  [  5   4  16]]
