@@ -1,13 +1,15 @@
 import math
-
+from sklearn.metrics import mean_absolute_percentage_error as mape
 import numpy as np
 from scipy.stats import gaussian_kde
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 import pandas as pd
 import seaborn as sns
+from sklearn.metrics import mean_squared_error as mse
 import matplotlib.pyplot as plt
 import numpy
+from sklearn.metrics import r2_score as r2
 from sklearn import metrics
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.linear_model import LogisticRegression
@@ -57,9 +59,10 @@ y = numpy.array(y);
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 sc = StandardScaler()
 X_train = sc.fit_transform(X_train) #fits training data to rest
-X_test = sc.transform(X_test) #scales data
+X_test = sc.fit_transform(X_test) #scales data
 
-clf = MLPRegressor(solver='adam', max_iter=1000);
+clf = MLPRegressor(solver='adam', max_iter=1000, hidden_layer_sizes=(150, 100));
+#clf = make_pipeline(StandardScaler(),clf)
 clf.fit(X_train, Y_train);
 Y_predict = clf.predict(X_test)
 
@@ -79,7 +82,7 @@ plt.show()
 
 # Result:
 #
-# R^2 score: -0.2403438983275359
-# Mean Squared Error: 26.152112752530225
-# Mean Absolute Percentage Error: 0.053082634629995455
+# R^2 score: -0.12363444903928333
+# Mean Squared Error: 24.2718891347673
+# Mean Absolute Percentage Error: 0.05060599716580764
 

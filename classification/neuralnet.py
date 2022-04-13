@@ -64,7 +64,9 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 print(X.shape, y.shape)
 print(Counter(y))
 # solver='adam', alpha=1e-5, hidden_layer_sizes=(10, 8, 6, 4, 2),
-clf = MLPClassifier(random_state=1, max_iter=2000, hidden_layer_sizes=(18, 10, 6));
+
+
+clf = MLPClassifier(random_state=1, max_iter=1000, hidden_layer_sizes=(100, 50));
 clf.fit(X_train, Y_train);
 
 Y_predict = clf.predict(X_test)

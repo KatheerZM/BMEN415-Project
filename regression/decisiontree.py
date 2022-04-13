@@ -1,5 +1,7 @@
 import math
 
+import numpy as np
+from scipy.stats import gaussian_kde
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.neural_network import MLPClassifier, MLPRegressor
 import pandas as pd
@@ -49,7 +51,7 @@ sc = StandardScaler()
 xTrain = sc.fit_transform(X_train) #fits training data to rest
 xTest = sc.transform(X_test) #scales data
 
-clf = DecisionTreeRegressor();
+clf = DecisionTreeRegressor(criterion='friedman_mse', min_weight_fraction_leaf=0.00);
 clf = make_pipeline(StandardScaler(),clf)
 clf.fit(X_train, Y_train);
 Y_predict = clf.predict(X_test)
@@ -61,6 +63,14 @@ print("Mean Absolute Percentage Error:", mean_absolute_percentage_error(Y_test, 
 #tree.plot_tree(sgd)
 #plt.show()
 
+XY = np.vstack([Y_predict,Y_test])
+z = gaussian_kde(XY)(XY)
+fig, ax = plt.subplots()
+sns.regplot(Y_predict ,Y_test, fit_reg=True, scatter_kws={"s": 100})
+ax.scatter(Y_predict,Y_test, c=z, s=100)
+ax.set_xlabel('Predicted Age')
+ax.set_ylabel('Actual Age')
+plt.show()
 
 # Result:
 #

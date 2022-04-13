@@ -66,7 +66,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 print(X.shape, y.shape)
 print(Counter(y))
 # solver='adam', alpha=1e-5, hidden_layer_sizes=(10, 8, 6, 4, 2),
-clf = tree.DecisionTreeClassifier();
+clf = tree.DecisionTreeClassifier(criterion='entropy');
 clf.fit(X_train, Y_train);
 
 Y_predict = clf.predict(X_test)
