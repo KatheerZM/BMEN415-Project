@@ -2,14 +2,11 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy
-from numpy import mean
-from numpy import std
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
 from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.feature_selection import SelectFromModel
 from sklearn.metrics import confusion_matrix
-from sklearn.model_selection import cross_val_score, train_test_split
-from sklearn.model_selection import RepeatedStratifiedKFold
+from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from collections import Counter
 
@@ -25,7 +22,6 @@ for line in line_split[1:-1]:
     for n in range(len(comma_split)):
         comma_split[n] = float(comma_split[n]);
     matrix.append(comma_split);
-
 
 #Split data into X and y
 X = [];
@@ -44,8 +40,6 @@ TheModel = SelectFromModel(FeatureSelection,prefit = True)
 X_new = TheModel.transform(X)
 X_new.shape;
 X = X_new;
-print(X.shape, y.shape)
-print(Counter(y))
 
 #Split X and y for testing and training
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
@@ -69,21 +63,6 @@ plt.xlabel("Predict")
 plt.ylabel("True")
 plt.show();
 
-
-
-
-exit()
-
-# define dataset
-# X, y = make_classification(n_samples=1000, n_features=10, n_informative=5, n_redundant=5, n_classes=3, random_state=1)
-# define the multinomial logistic regression model
-model = LogisticRegression(multi_class='multinomial', solver='lbfgs')
-# define the model evaluation procedure
-cv = RepeatedStratifiedKFold(n_splits=21, n_repeats=3, random_state=1)
-# evaluate the model and collect the scores
-n_scores = cross_val_score(model, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
-# report the model performance
-print('Mean Accuracy: %.3f (%.3f)' % (mean(n_scores), std(n_scores)));
 
 # Result:
 #

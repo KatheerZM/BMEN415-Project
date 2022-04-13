@@ -1,27 +1,13 @@
-import math
-
 import numpy as np
 from scipy.stats import gaussian_kde
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.neural_network import MLPClassifier, MLPRegressor
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy
-from sklearn import metrics
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.linear_model import LogisticRegression
-from numpy import mean
-from numpy import std
-from sklearn.datasets import make_classification
-from sklearn.metrics import confusion_matrix, r2_score, mean_squared_error, mean_absolute_percentage_error
-from sklearn.model_selection import cross_val_score, train_test_split
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
+from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.tree import DecisionTreeRegressor
-from sklearn import tree
 from collections import Counter
 
 with open ('../Volumetric_features.csv', mode='r') as volumetric:
@@ -34,7 +20,6 @@ for line in line_split[1:1200]:
     for n in range(len(comma_split)):
         comma_split[n] = float(comma_split[n]);
     matrix.append(comma_split);
-
 
 X = [];
 y = [];
@@ -59,9 +44,6 @@ Y_predict = clf.predict(X_test)
 print ("R^2 score:", r2_score(Y_test, Y_predict))
 print("Mean Squared Error:", mean_squared_error(Y_test, Y_predict))
 print("Mean Absolute Percentage Error:", mean_absolute_percentage_error(Y_test, Y_predict))
-
-#tree.plot_tree(sgd)
-#plt.show()
 
 XY = np.vstack([Y_predict,Y_test])
 z = gaussian_kde(XY)(XY)

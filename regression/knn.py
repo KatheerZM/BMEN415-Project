@@ -1,27 +1,13 @@
-import math
-
 import numpy as np
 from scipy.stats import gaussian_kde
 from sklearn.neighbors import KNeighborsRegressor
-from sklearn.neural_network import MLPClassifier, MLPRegressor
-import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 import numpy
-from sklearn import metrics
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.linear_model import LogisticRegression
-from numpy import mean
-from numpy import std
-from sklearn.datasets import make_classification
-from sklearn.metrics import confusion_matrix, r2_score, mean_squared_error, mean_absolute_percentage_error
-from sklearn.model_selection import cross_val_score, train_test_split
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
+from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from collections import Counter
 
 
 with open ('../Volumetric_features.csv', mode='r') as volumetric:
@@ -35,7 +21,6 @@ for line in line_split[1:1200]:
         comma_split[n] = float(comma_split[n]);
     matrix.append(comma_split);
 
-
 X = [];
 y = [];
 for r in matrix[1:]:
@@ -43,15 +28,6 @@ for r in matrix[1:]:
     y.append(r[-2]);
 X = numpy.array(X);
 y = numpy.array(y);
-
-# #Scale and PCA
-# scaler = StandardScaler()
-# X1 = scaler.fit_transform(X)
-# pca1 = PCA(n_components=100)
-# pca1_data=pca1.fit_transform(X1)
-# #X = pca1_data
-# print(X.shape, y.shape)
-# print(Counter(y))
 
 #Test Train split
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)

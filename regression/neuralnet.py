@@ -1,30 +1,12 @@
-import math
-from sklearn.metrics import mean_absolute_percentage_error as mape
 import numpy as np
 from scipy.stats import gaussian_kde
-from sklearn.neighbors import KNeighborsRegressor
-from sklearn.neural_network import MLPClassifier, MLPRegressor
-import pandas as pd
+from sklearn.neural_network import MLPRegressor
 import seaborn as sns
-from sklearn.metrics import mean_squared_error as mse
 import matplotlib.pyplot as plt
 import numpy
-from sklearn.metrics import r2_score as r2
-from sklearn import metrics
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
-from sklearn.linear_model import LogisticRegression
-from numpy import mean
-from numpy import std
-from sklearn.datasets import make_classification
-from sklearn.metrics import confusion_matrix, r2_score, mean_squared_error, mean_absolute_percentage_error
-from sklearn.model_selection import cross_val_score, train_test_split
-from sklearn.model_selection import RepeatedStratifiedKFold
-from sklearn.linear_model import LogisticRegression
-from sklearn.pipeline import make_pipeline
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_percentage_error
+from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.decomposition import PCA
-from collections import Counter
-
 
 with open ('../Volumetric_features.csv', mode='r') as volumetric:
     text = volumetric.read();
@@ -37,7 +19,6 @@ for line in line_split[1:1200]:
         comma_split[n] = float(comma_split[n]);
     matrix.append(comma_split);
 
-
 X = [];
 y = [];
 for r in matrix[1:]:
@@ -46,15 +27,6 @@ for r in matrix[1:]:
 X = numpy.array(X);
 y = numpy.array(y);
 
-# #Scale and PCA
-# scaler = StandardScaler()
-# X1 = scaler.fit_transform(X)
-# pca1 = PCA(n_components=100)
-# pca1_data=pca1.fit_transform(X1)
-# #X = pca1_data
-# print(X.shape, y.shape)
-# print(Counter(y))
-
 #Test Train split
 X_train, X_test, Y_train, Y_test = train_test_split(X, y, test_size=0.2)
 sc = StandardScaler()
@@ -62,7 +34,6 @@ X_train = sc.fit_transform(X_train) #fits training data to rest
 X_test = sc.fit_transform(X_test) #scales data
 
 clf = MLPRegressor(solver='adam', max_iter=1000, hidden_layer_sizes=(150, 100));
-#clf = make_pipeline(StandardScaler(),clf)
 clf.fit(X_train, Y_train);
 Y_predict = clf.predict(X_test)
 
